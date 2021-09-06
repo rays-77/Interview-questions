@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script>
+    new Promise((resolve, reject) => {
+  console.log('A')
+  setTimeout(() => {
+    console.log('B')
+  }, 0)
+  console.log('C')
+  resolve()
+  console.log('D')
+})
+  .then(() => {
+    console.log('E')
+    new Promise((resolve, reject) => {
+      console.log('F')
+      resolve()
+      console.log('G')
+    })
+      .then(() => {
+        setTimeout(() => {
+          console.log('H')
+        }, 0)
+        console.log('I')
+      })
+      .then(() => {
+        console.log('J')
+      })
+  })
+  .then(() => {
+    console.log('K')
+  })
+
+setTimeout(() => {
+  console.log('L')
+})
+
+new Promise((resolve, reject) => {
+  console.log('M')
+  resolve()
+}).then(() => {
+  setTimeout(() => {
+    new Promise((resolve, reject) => {
+      console.log('N')
+      resolve()
+    })
+      .then(() => {
+        setTimeout(() => {
+          console.log('0')
+        }, 0)
+      })
+      .then(() => {
+        console.log('P')
+      })
+  }, 0)
+})
+
+console.log('Q')
+
+  </script>
+</head>
+<body>
+  
+</body>
+</html>

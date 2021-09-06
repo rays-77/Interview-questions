@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script>
+
+
+    function Foo() {
+  getName = function () {
+    console.log(1)
+  }
+  //这里返回的this是window
+  return this
+}
+
+//静态方法
+Foo.getName = function () {
+  console.log(2)
+}
+
+Foo.prototype.getName = function () {
+  console.log(3)
+}
+
+var getName = function () {
+  console.log(4)
+}
+
+function getName() {
+  console.log(5)
+}
+
+Foo.getName() //2  静态方法
+
+//window.getName(),而window下的getName 在Foo中调用getName被重新赋值，所以打印1
+Foo().getName() //1\\
+
+//在执行过Foo() 的基础上,所以getName = function{console.log(1)}
+getName() //1
+
+//构造器私有属性的 getName(),所以打印2.
+new Foo.getName() //2
+
+//原型上的getName(),所以打印3
+new Foo().getName() //3
+
+// 首先new Foo() 得到一个空对象{}
+// 第二步 向空对象中添加一个属性getName ，值为一个函数
+// 第三步 new  {}.getName()
+// 等价与 var bar = new (new Foo().getName)(); console.log(bar)
+// 先new Foo得到实例对象的getName 方法，再将这个原型上的getName方法当做构造函数继续new ，所以执行原型上的方法，打印3
+new new Foo().getName() //3
+
+  </script>
+</head>
+<body>
+  
+</body>
+</html>

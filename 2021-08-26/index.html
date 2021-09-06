@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script>
+
+    // 1,
+    var a = 10
+
+    var obj = {
+      a: 100,
+      pro: {
+        getPro: () => {
+          console.log(this.a)
+        },
+      },
+    }
+
+    //10
+    // 箭头函数里面执行打印this.a,箭头函数不会创建自己的this，它只会从自己的作用域链的上一层继承this
+    // 所以这里的this指向window，打印出来的结果是10 
+    obj.pro.getPro() 
+
+    //2.
+    var a = { n: 1 }
+    var b = a
+
+    a.x = a = { n: 2 }
+
+    console.log(a.x)  //undefined
+    console.log(b.x)  //{n:1, x:{n:2}}
+
+  </script>
+</head>
+<body>
+  
+</body>
+</html>
